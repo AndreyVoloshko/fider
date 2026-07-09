@@ -5,7 +5,7 @@ import IconChatAlt2 from "@fider/assets/images/heroicons-chat-alt-2.svg"
 import IconCheck from "@fider/assets/images/heroicons-check.svg"
 import { HStack, VStack } from "@fider/components/layout"
 import { useFider } from "@fider/hooks"
-import { Trans } from "@lingui/react/macro"
+import { Trans, Plural } from "@lingui/react/macro"
 
 interface ListPostsProps {
   posts?: Post[]
@@ -27,6 +27,7 @@ const ListPostItem = (props: {
   const fider = useFider()
   const isModerationEnabled = fider.session.tenant.isModerationEnabled
   const isPending = isModerationEnabled && !props.post.isApproved
+  const votes = props.post.votesCount
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (props.onPostClick) {
@@ -64,8 +65,10 @@ const ListPostItem = (props: {
         )}
         <HStack justify="between" align="center">
           <div className="c-posts-container__post-votes">
-            <span className="text-semibold text-2xl">{props.post.votesCount}</span>{" "}
-            <span className="text-gray-700">{props.post.votesCount === 1 ? <Trans id="label.vote">Vote</Trans> : <Trans id="label.votes">Votes</Trans>}</span>
+            <span className="text-semibold text-2xl">{votes}</span>{" "}
+            <span className="text-gray-700">
+              <Plural id="label.votecount" value={votes} one="Vote" other="Votes" />
+            </span>
             {props.post.hasVoted && (
               <span className="text-xs text-blue-600 ml-2 inline-flex flex-items-center">
                 <Icon sprite={IconCheck} className="h-3 w-3 mr-1" />
