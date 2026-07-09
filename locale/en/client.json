@@ -100,7 +100,6 @@
   "linkmodal.title": "Insert Link",
   "linkmodal.url.label": "URL",
   "linkmodal.url.placeholder": "https://example.com",
-  "listposts.label.showmore": "Show {remainingCount} more",
   "menu.administration": "Administration",
   "menu.mysettings": "My Settings",
   "menu.signout": "Sign out",
