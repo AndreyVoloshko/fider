@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Post, Tag, CurrentUser } from "@fider/models"
 import { ShowTag, Markdown, Icon, ResponseLozenge } from "@fider/components"
 import IconChatAlt2 from "@fider/assets/images/heroicons-chat-alt-2.svg"
@@ -13,7 +13,6 @@ interface ListPostsProps {
   emptyText: string
   minimalView?: boolean
   showStatus?: boolean
-  maxVisible?: number
   onPostClick?: (postNumber: number, slug: string) => void
 }
 
@@ -120,7 +119,6 @@ const MinimalListPostItem = (props: { post: Post; tags: Tag[]; onPostClick?: (po
 
 export const ListPosts = (props: ListPostsProps) => {
   const { minimalView = false } = props
-  const [expanded, setExpanded] = useState(false)
 
   if (!props.posts) {
     return null
@@ -130,10 +128,7 @@ export const ListPosts = (props: ListPostsProps) => {
     return <p className="text-center">{props.emptyText}</p>
   }
 
-  const allPosts = props.posts
-  const hasMore = props.maxVisible !== undefined && !expanded && allPosts.length > props.maxVisible
-  const visiblePosts = hasMore ? allPosts.slice(0, props.maxVisible) : allPosts
-  const remainingCount = allPosts.length - visiblePosts.length
+  const visiblePosts = props.posts
 
   return (
     <>
@@ -160,20 +155,6 @@ export const ListPosts = (props: ListPostsProps) => {
             />
           ))}
         </>
-      )}
-      {hasMore && (
-        <div className="my-4 text-center">
-          <a
-            href="#"
-            className="text-primary-base text-medium hover:underline"
-            onClick={(e) => {
-              e.preventDefault()
-              setExpanded(true)
-            }}
-          >
-            <Trans id="listposts.label.showmore">Show {remainingCount} more</Trans>
-          </a>
-        </div>
       )}
     </>
   )
