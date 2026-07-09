@@ -199,6 +199,16 @@ var (
 		IsRTL:             false,
 	}
 
+	// LocaleUkrainian represents Ukrainian
+	LocaleUkrainian = Locale{
+		Code:              "uk",
+		Name:              "Ukrainian (Українська)",
+		MessageFormatCode: "uk",
+		PostgresConfig:    "simple",
+		LinguaLanguage:    lingua.Ukrainian,
+		IsRTL:             false,
+	}
+
 	// AllLocales contains all supported locales
 	AllLocales = []Locale{
 		LocaleEnglish,
@@ -219,6 +229,7 @@ var (
 		LocaleChineseCN,
 		LocaleChineseTW,
 		LocalePersian,
+		LocaleUkrainian,
 	}
 )
 
